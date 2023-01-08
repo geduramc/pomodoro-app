@@ -1,0 +1,32 @@
+{
+  "name": "task-timer",
+  "productName": "Task timer",
+  "version": "1.0.0",
+  "description": "task-timer app",
+  "scripts": {
+    "build": "rimraf build/ && tsc && npm run copy-index && npm run copy-assets",
+    "start": "npm run build && electron ./build/main.js",
+    "copy-index": "cp ./index.html ./build/",
+    "copy-assets": "cp -R ./src/assets/ ./build/assets",
+    "dev": "concurrently \"tsc -w\" \"electron ./build/main.js\""
+  },
+  "keywords": [],
+  "author": "geduramc",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "electron": "^22.0.0",
+    "electron-packager": "^17.1.1",
+    "electron-reload": "^2.0.0-alpha.1",
+    "ts-standard": "^12.0.2",
+    "typescript": "^4.9.4"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ]
+  }
+}

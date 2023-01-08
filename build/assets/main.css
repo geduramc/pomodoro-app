@@ -1,6 +1,0 @@
-@import url('palette.css');
-
-body{
-  background-color: var(--default-bgcolor);
-  color: var(--default-color);
-}

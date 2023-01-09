@@ -41,12 +41,13 @@ export default {
     margin: 0 0 0 1rem;
   }
   span.logo{
+    color: #0D6EFD;
     margin-left: 1rem;
     float: left;
     font-size: 16px;
     font-weight: 800;
-    border: solid 1px #0d6efd;
-    border-radius: 5px;
+    border: solid 1px #0D6EFD;
+    border-radius: 6px;
     padding: 6px 20px;
     opacity: .9;
   }

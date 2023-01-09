@@ -6,7 +6,7 @@
   <ul class="nav justify-content-end m-3 ">
     <span v-for="(item, index) in routes" :key="index">
       <li v-if="item.name != route.name" class="nav-item">
-        <router-link class="btn btn-outline-primary" :to="item.path">{{ item.name }}</router-link>
+        <router-link class="btn btn-outline-primary" :to="item.path" v-bind:class="{ 'disabled': item.name == 'Settings' }">{{ item.name }}</router-link>
       </li>
     </span>
     <li class="nav-item">

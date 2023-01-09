@@ -4,7 +4,7 @@ import path from 'path'
 app.whenReady().then(() => {
   void new BrowserWindow({
     width: 400,
-    height: 600,
+    height: 500,
     // frame: false,
     darkTheme: true,
     resizable: false,

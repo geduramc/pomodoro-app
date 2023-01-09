@@ -1,17 +1,19 @@
 {
   "name": "task-timer",
-  "productName": "Task timer",
+  "productName": "TaskTimer",
   "version": "1.0.0",
   "description": "task-timer app",
   "private": true,
   "main": "dist/electron/main/main.js",
   "scripts": {
     "vite:dev": "vite",
-    "vite:build": "rimraf dist/ && vue-tsc --noEmit && vite build",
+    "vite:build": "rimraf dist/ && vue-tsc --noEmit && vite build && npm run copy_audio && npm run copy_icons",
     "vite:preview": "vite preview",
     "watch": "tsc -w",
     "app:dev": "tsc && concurrently vite \" electron .\" \"tsc -w\"",
-    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder"
+    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder",
+    "copy_audio": "cp -R src/assets/audio dist/assets/audio",
+    "copy_icons": "cp -R src/assets/icon.icns dist/"
   },
   "build": {
     "appId": "geduramc_task_timer",
@@ -24,12 +26,21 @@
       "dist"
     ],
     "mac": {
-      "artifactName": "${productName}_${version}.${ext}",
+      "icon": "dist/icon.icns",
+      "artifactName": "${productName}.${ext}",
       "target": [
         "dmg"
       ]
     },
+    "linux": {
+      "icon": "dist/icon.png",
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
     "win": {
+      "icon": "dist/icon.ico",
       "target": [
         {
           "target": "nsis",
@@ -38,7 +49,7 @@
           ]
         }
       ],
-      "artifactName": "${productName}_${version}.${ext}"
+      "artifactName": "${productName}.${ext}"
     },
     "nsis": {
       "oneClick": false,

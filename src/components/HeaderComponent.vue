@@ -1,7 +1,7 @@
 <template>
   <span class="logo">
     <i class="fa-solid fa-clock"></i>
-    Task timer
+    TaskTimer
   </span>
   <ul class="nav justify-content-end m-3 ">
     <span v-for="(item, index) in routes" :key="index">

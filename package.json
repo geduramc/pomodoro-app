@@ -11,12 +11,7 @@
     "vite:preview": "vite preview",
     "watch": "tsc -w",
     "app:dev": "tsc && concurrently vite \" electron .\" \"tsc -w\"",
-    "vite": "vite",
-    "build": "rimraf dist/ && vite build && npm run copy-index && npm run copy-assets",
-    "start": "npm run build && electron ./dist/main.js",
-    "copy-index": "cp ./index.html ./dist/",
-    "copy-assets": "cp -R ./src/assets/ ./dist/assets",
-    "dev": "concurrently \"tsc -w\" \"electron ./dist/main.js\""
+    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder"
   },
   "build": {
     "appId": "geduramc_task_timer",
@@ -66,8 +61,8 @@
     "@vue/tsconfig": "^0.1.3",
     "concurrently": "^7.6.0",
     "electron": "^22.0.0",
+    "electron-builder": "^22.10.3",
     "electron-packager": "^17.1.1",
-    "electron-reload": "^2.0.0-alpha.1",
     "npm-run-all": "^4.1.5",
     "ts-standard": "^12.0.2",
     "typescript": "~4.7.4",

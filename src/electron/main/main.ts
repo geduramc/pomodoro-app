@@ -1,8 +1,5 @@
 import { app, BrowserWindow } from 'electron'
-import electronReload from 'electron-reload'
 import path from 'path'
-
-electronReload(__dirname, {})
 
 app.whenReady().then(() => {
   void new BrowserWindow({
@@ -12,7 +9,7 @@ app.whenReady().then(() => {
     darkTheme: true,
     resizable: false,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, '../preload/preload.js')
     }
   }).loadFile(path.join(__dirname, '../../index.html'))
 }).catch(err => console.error(err))

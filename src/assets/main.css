@@ -1,6 +1,13 @@
-@import url('palette.css');
+:root{
+  --default-color: #AEAEAE;
+  --default-bgclor: #0D1117;
+}
 
 body{
-  background-color: var(--default-bgcolor);
-  color: var(--default-color);
+  background-color: var(--default-bgclor) !important;
+  color: var(--default-color) !important;
+}
+
+.modal-content{
+  background-color: var(--default-bgclor)  !important;
 }

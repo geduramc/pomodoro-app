@@ -1,32 +1,31 @@
 <template>
-  <span class="logo">
-    <i class="fa-solid fa-clock"></i>
-    TaskTimer
-  </span>
-  <ul class="nav justify-content-end m-3 ">
-    <span v-for="(item, index) in routes" :key="index">
-      <li v-if="item.name != route.name" class="nav-item">
-        <router-link class="btn btn-outline-primary" :to="item.path" v-bind:class="{ 'disabled': item.name == 'Settings' }">{{ item.name }}</router-link>
-      </li>
+  <header class="titlebar">
+    <span class="logo">
+      <i class="fa-solid fa-clock"></i>
+      TaskTimer
     </span>
-    <li class="nav-item">
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#info-modal">
-        <i class="fa-solid fa-circle-info"></i>
-      </button>
-    </li>
-  </ul>
-  <hr class="m-3">
+    <ul class="nav justify-content-end m-3 ">
+      <span v-for="(item, index) in routes" :key="index">
+        <li v-if="item.name != route.name" class="nav-item">
+          <router-link class="btn btn-outline-primary" :to="item.path"
+            v-bind:class="{ 'disabled': item.name == 'Settings' }">{{ item.name }}</router-link>
+        </li>
+      </span>
+    </ul>
+    <hr class="m-3">
+  </header>
 </template>
 <script lang="ts">
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 export default {
-  setup(){
+  name: 'HeaderComponent',
+  setup() {
     const route = ref(useRoute())
-    const routes = ref(useRouter().options.routes)
+    const routes = ref(useRouter().options.routes.filter(x => x.name != 'Download'))
 
-    return{
+    return {
       route,
       routes
     }
@@ -34,21 +33,30 @@ export default {
 }
 </script>
 <style scoped>
-  hr{
-    margin-bottom: 2rem !important;
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+@media (max-width: 400px) {
+  .titlebar {
+    margin-top: 2rem;
   }
-  li{
-    margin: 0 0 0 1rem;
-  }
-  span.logo{
-    color: #0D6EFD;
-    margin-left: 1rem;
-    float: left;
-    font-size: 16px;
-    font-weight: 800;
-    border: solid 1px #0D6EFD;
-    border-radius: 6px;
-    padding: 6px 20px;
-    opacity: .9;
-  }
+}
+hr {
+  margin-bottom: 2rem !important;
+}
+li {
+  margin: 0 0 0 1rem;
+}
+span.logo {
+  color: #0D6EFD;
+  margin-left: 1rem;
+  float: left;
+  font-size: 20px;
+  font-weight: 800;
+
+  border-radius: 6px;
+  padding: 6px 10px;
+  opacity: .9;
+}
 </style>

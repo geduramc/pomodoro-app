@@ -1,20 +1,22 @@
 <template>
-  <div class="row justify-content-center time-container m-2">
-    <div class="col-12 text-center mt-4">
-      <button type="button" class="btn btn-primary mode active">Pomodoro</button>
-      <button type="button" class="btn btn-primary mode">Short Break</button>
-      <button type="button" class="btn btn-primary mode">Long Break</button>
-    </div>
-    <div class="col-12 text-center">
-      <span v-bind:class="{ 'paused': pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>
-    </div>
-    <div class="col-12 text-center mb-4">
-      <button v-if="!flag" type="button" class="btn btn-primary timer" v-on:click="start()">START</button>
-      <button v-if="flag" type="button" class="btn btn-primary timer" v-on:click="pause">{{ (pause_flag) ? 'START' : 'PAUSE' }}</button>
-      <button v-if="flag" type="button" class="btn btn-primary timer" v-on:click="stop">STOP</button>
-      <button v-if="audio_flag" type="button" class="btn btn-outline-primary timer" v-on:click="mute">
-        <i class="fa-solid fa-volume-xmark"></i>
-      </button>
+  <div class="row">
+    <div class="col-md-12 timer-container">
+      <div class="col-md-12 modes mt-4">
+        <span class="g-btn mode active">Pomodoro</span>
+        <span class="g-btn mode">Short Break</span>
+        <span class="g-btn mode">Long Break</span>
+      </div>
+      <div class="col-md-12 text-center">
+        <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>
+      </div>
+      <div class="col-md-12 mb-4 buttons">
+        <button v-if="!flag || pause_flag" type="button" class="btn btn-primary timer" v-on:click="start">START</button>
+        <button v-if="flag && !pause_flag" type="button" class="btn btn-info timer" v-on:click="pause">PAUSE</button>
+        <button v-if="flag" type="button" class="btn btn-danger timer" v-on:click="stop">STOP</button>
+        <button v-if="audio_flag" type="button" class="btn btn-danger timer" v-on:click="mute">
+          <i class="fa-solid fa-volume-xmark"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -23,6 +25,7 @@ import { ref } from 'vue'
 import settings from '../../public/settings.json'
 
 export default {
+  name: 'HomeComponent',
   setup() {
     const min = ref(settings.pomodoro)
     const sec = ref(0)
@@ -35,11 +38,13 @@ export default {
     let timeout: any
     let snd: HTMLMediaElement
 
-    const start = (init: boolean = true) => {
+    const start = () => {
+      click()
       if (snd != undefined) mute()
-      if (init) mil = min.value*60000
+      if (!pause_flag.value) mil = min.value*60000 //if not paused -> initial
       
       flag.value = true
+      pause_flag.value = false
       interval = setInterval(() => {
         min.value = (sec.value == 0) ? --min.value : min.value
         sec.value = (sec.value == 0) ? 59 : --sec.value
@@ -53,6 +58,7 @@ export default {
     }
 
     const stop = () => {
+      click()
       if (snd != undefined) mute()
 
       pause_flag.value = false
@@ -67,16 +73,13 @@ export default {
     }
 
     const pause = () => {
-      if (pause_flag.value){
-        mil = mil - (mil_state*1000)
-        start(false)
-      }
-      else{
-        clearInterval(interval)
-        clearTimeout(timeout)
-      }
+      click()
+      pause_flag.value = true
+      mil = mil - (mil_state*1000)
+      mil_state = 0
 
-      pause_flag.value = !pause_flag.value
+      clearInterval(interval)
+      clearTimeout(timeout)
     }
 
     const play = () => {
@@ -85,13 +88,19 @@ export default {
       snd.play()
 
       setTimeout(() => {
+        audio_flag.value = false
         snd.pause()
-      }, 15000)
+      }, 30000)
     }
 
     const mute = () => {
+      click()
       audio_flag.value = false
       snd.pause()
+    }
+
+    const click = () => {
+      new Audio('./audio/click.wav').play()
     }
 
     return {
@@ -109,11 +118,19 @@ export default {
 }
 </script>
 <style scoped>
-.time-container{
-  border: solid 1px #0d6efd;
+.row{
+  padding: 0 1rem;
+}
+.timer-container{
+  /* border: solid 1px var(--default-blue); */
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 6px;
   margin-bottom: 20px;
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
 }
 a{
   color: var(--default-color);
@@ -122,20 +139,30 @@ a{
   font-size: 100px;
 }
 button.timer{
-  font-size: 30px;
-  margin: 0 10px;
+  font-size: 25px;
 }
-button.mode{
-  margin: 0 2px;
-  background: none rgba(255, 255, 255, 0);
+div.modes{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+span.mode{
+  padding: 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0);
   border: none;
   color: var(--default-color);
+  font-size: 15px;
+  cursor: pointer;
 }
-button.active{
-  background: none rgba(13, 110, 253, 0.15);
+span.mode:hover{
+  background: none rgba(13, 110, 253, 0.1);
+}
+span.active{
+  background: none rgba(13, 110, 253, 0.2);
   border: none;
+  cursor: default;
 }
-
 .paused{
   opacity: 0.3;
 }

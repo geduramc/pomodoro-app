@@ -18,6 +18,7 @@
 </template>
 <script lang="ts">
 export default {
+  name: 'InfoComponent',
   setup() {
    return{
 
@@ -26,4 +27,7 @@ export default {
 }
 </script>
 <style scoped>
+.modal-header {
+  border-bottom: var(--bs-modal-header-border-width) solid #161d29 !important;
+}
 </style>

@@ -3,18 +3,21 @@
   <div class="container">
     <router-view></router-view>
   </div>
-  <InfoComponentVue/>
+  <InfoComponent/>
+  <FooterComponent/>
 </template>
 
 <script lang="ts">
 import { RouterView } from 'vue-router'
 import HeaderComponent from './components/HeaderComponent.vue'
-import InfoComponentVue from './components/InfoComponent.vue'
+import InfoComponent from './components/InfoComponent.vue'
+import FooterComponent from './components/FooterComponent.vue'
 
 export default {
   components: {
     HeaderComponent,
-    InfoComponentVue
+    InfoComponent,
+    FooterComponent
   }
 }
 </script>

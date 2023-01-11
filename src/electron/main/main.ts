@@ -1,17 +1,31 @@
 import { app, BrowserWindow } from 'electron'
 import path from 'path'
 
-app.whenReady().then(() => {
-  void new BrowserWindow({
-    width: 400,
+const isMac = process.platform === 'darwin'
+if (isMac) app.dock.hide()
+
+const createWindow = (): void => {
+  const main = new BrowserWindow({
+    width: 350,
     height: 500,
     // frame: false,
-    darkTheme: true,
     resizable: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload: path.join(__dirname, '../preload/preload.js')
     }
-  }).loadFile(path.join(__dirname, '../../index.html'))
+  })
+
+  main.setAlwaysOnTop(true, 'screen-saver')
+  main.setVisibleOnAllWorkspaces(true)
+  main.unmaximize()
+  main.loadFile(path.join(__dirname, '../../index.html')).catch(err => {
+    console.error(err)
+  })
+}
+
+app.whenReady().then(() => {
+  createWindow()
 }).catch(err => console.error(err))
 
 app.on('window-all-closed', () => {

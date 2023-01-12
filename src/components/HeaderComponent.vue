@@ -5,8 +5,9 @@
       TaskTimer
     </span>
     <span v-for="(item, index) in routes" :key="index" class="menu">
-      <router-link class="btn btn-outline-primary" :to="item.path"
-        >{{ item.name }}</router-link>
+      <router-link class="btn btn-outline-primary" :to="item.path">
+        <i :class="item.meta.icon"></i>
+      </router-link>
     </span>
   </nav>
 </template>
@@ -21,7 +22,7 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const routes = ref([] as RouteRecordNormalized[])
-    
+
     watch(route, () => {
       routes.value = router.getRoutes().filter(x => x.name != route.name && x.name != 'Download')
     })
@@ -33,28 +34,34 @@ export default {
 }
 </script>
 <style scoped>
-nav{
+nav {
   display: flex;
   justify-content: space-between;
 }
+
 .titlebar {
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
+
 @media (max-width: 250px) {
-  nav{
+  nav {
     margin-top: 1.5rem !important;
   }
 }
+
 span.logo {
-  color: #0D6EFD;
+  color: var(--default-blue);
   float: left;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   opacity: .6;
+  margin-left: .3rem;
 }
-.btn{
-  font-size: 12px;
+
+.btn {
+  margin-right: .3rem;
+  font-size: 16px;
   padding: 2px 6px;
 }
 </style>

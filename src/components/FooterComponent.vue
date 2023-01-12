@@ -30,6 +30,6 @@ i:hover {
 footer {
   justify-content: center;
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
 }
 </style>

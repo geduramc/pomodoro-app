@@ -3,7 +3,6 @@
     <HeaderComponent />
     <router-view></router-view>
     <InfoComponent/>
-    <FooterComponent/>
   </div>
 </template>
 
@@ -11,13 +10,11 @@
 import { RouterView } from 'vue-router'
 import HeaderComponent from './components/HeaderComponent.vue'
 import InfoComponent from './components/InfoComponent.vue'
-import FooterComponent from './components/FooterComponent.vue'
 
 export default {
   components: {
     HeaderComponent,
-    InfoComponent,
-    FooterComponent
+    InfoComponent
   }
 }
 </script>

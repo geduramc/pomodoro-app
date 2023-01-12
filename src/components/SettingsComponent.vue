@@ -13,7 +13,11 @@
       <small>Long Break</small>
       <input type="number" id="pomodoro" class="form-control" v-model="long" required>
     </div>
-    <div class="col-12">
+    <div class="col-6">
+      <small>Long Break interval</small>
+      <input type="number" id="pomodoro" class="form-control" v-model="longInterval" required disabled>
+    </div>
+    <div class="col-6">
       <small>Alarm</small>
       <div class="dropdown">
         <button class="btn btn-secondary  dropdown-toggle form-control" type="button" data-bs-toggle="dropdown"
@@ -46,6 +50,7 @@ export default {
     const pom = ref(settings.pomodoro)
     const short = ref(settings.shortBreak)
     const long = ref(settings.longBreak)
+    const longInterval = ref(settings.longBreakInterval)
     const alarms = ref(settings.alarm)
     const alarmType = ref(alarms.value[0])
     const alert = ref({ type: '', text: '' })
@@ -82,6 +87,7 @@ export default {
           pomodoro: pom.value,
           shortBreak: short.value,
           longBreak: long.value,
+          longBreakInterval: longInterval.value,
           alarm: alarmType.value
         }))
         showAlert('success', 'saved!')
@@ -93,16 +99,18 @@ export default {
       pom.value = settings.pomodoro
       short.value = settings.shortBreak
       long.value = settings.longBreak
+      longInterval.value = settings.longBreakInterval
       alarmType.value = settings.alarm[0]
       save()
     }
 
     onMounted(() => {
       if(localStorage.getItem('app-tasktimer-settings')){
-        const { pomodoro, shortBreak, longBreak, alarm } = JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
+        const { pomodoro, shortBreak, longBreak, longBreakInterval, alarm } = JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
         pom.value = pomodoro,
         short.value = shortBreak
         long.value = longBreak
+        longInterval.value = longBreakInterval
         alarmType.value = alarm
       }
     })
@@ -115,6 +123,7 @@ export default {
       pom,
       short,
       long,
+      longInterval,
       alarms,
       alarmType,
       alert,
@@ -190,7 +199,10 @@ div.alert {
   display: flex;
   justify-content: space-between;
 }
-
+.form-control:disabled {
+  background-color: #171d28;
+  opacity: .2;
+}
 @media (max-width: 250px) {
   label{
     font-size: 14px;

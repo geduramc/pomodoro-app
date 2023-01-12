@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12 timer-container text-center pt-2">
-      <span class="mode">{{ mode }}</span>
+      <button type="button" class="mode" v-on:click="changeMode">{{ mode }}</button>
       <hr/>
       <div class="col-md-12 text-center">
         <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>
@@ -29,6 +29,7 @@ export default {
     let pom = 0
     let short = 0
     let long = 0
+    // let longInterval = 0
     let alarmType = ''
 
     const min = ref(pom)
@@ -36,7 +37,8 @@ export default {
     const flag = ref(false)
     const audio_flag = ref(false)
     const pause_flag = ref(false)
-    const mode = ref('Pomodoro')
+    const modes = ['Pomodoro', 'Short Break', 'Long Break']
+    const mode = ref(modes[0])
 
     let mil: number = 0
     let mil_state: number = 0
@@ -60,6 +62,7 @@ export default {
       timeout = setTimeout(() => {
         stop()
         play()
+        // changeMode()
       }, mil)
     }
 
@@ -69,7 +72,7 @@ export default {
 
       pause_flag.value = false
       flag.value = false
-      min.value = pom
+      min.value = (mode.value == modes[0]) ? pom : (mode.value == modes[1]) ? short : long
       sec.value = 0
       mil = 0
       mil_state = 0
@@ -109,6 +112,13 @@ export default {
       new Audio('./audio/click.wav').play()
     }
 
+    const changeMode = () => {
+      let idx = modes.indexOf(mode.value)
+      idx = (idx == (modes.length - 1)) ? 0 : idx + 1
+      mode.value = modes[idx]
+      stop()
+    }
+
     onMounted(() => {
       const { pomodoro, shortBreak, longBreak, alarm } = (localStorage.getItem('app-tasktimer-settings') != null)
         ? JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
@@ -118,8 +128,6 @@ export default {
       short = shortBreak
       long = longBreak
       alarmType = alarm
-
-      console.info(short, long)
     })
 
     onUnmounted(() => {
@@ -138,7 +146,8 @@ export default {
       start,
       stop,
       pause,
-      mute
+      mute,
+      changeMode
     }
   },
   components: {
@@ -151,7 +160,6 @@ export default {
   padding: 0 1rem;
 }
 .timer-container{
-  /* border: solid 1px var(--default-blue); */
   background-color: rgba(255, 255, 255, 0.03);
   border-radius: 6px;
   margin-bottom: 20px;
@@ -166,13 +174,21 @@ a{
 }
 .time{
   font-size: 60px;
+  cursor: default;
 }
 button.timer{
   font-size: 15px;
 }
-span.mode{
+button.mode{
   color: var(--default-color);
+  background-color: transparent;
+  border: none;
   font-size: 20px;
+  opacity: .6;
+}
+button.mode:hover{
+  color: var(--default-blue);
+  opacity: .5;
 }
 .paused{
   opacity: 0.3;

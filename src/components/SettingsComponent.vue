@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col-12 buttons">
-      <input type="button" class="btn btn-primary" value="RESTORE" v-on:click="restore">
+      <input type="button" class="btn btn-default" value="RESTORE" v-on:click="restore">
       <input type="submit" class="btn btn-primary" value="SAVE" v-on:click="save">
     </div>
     <div class="col-12">
@@ -68,6 +68,10 @@ export default {
 
       if(pom.value <= 0 || pom.value > 60) err = 'Time value (min: 1 max: 60)'
       if(pom.value.toString().length <= 0) err = 'Error or missing Pomodoro value'
+      if(short.value <= 0 || short.value > 60) err = 'Time value (min: 1 max: 60)'
+      if(short.value.toString().length <= 0) err = 'Error or missing Short Break value'
+      if(long.value <= 0 || long.value > 60) err = 'Time value (min: 1 max: 60)'
+      if(long.value.toString().length <= 0) err = 'Error or missing Long Break value'
 
       if(err.length > 0){
         showAlert('danger', err)
@@ -196,13 +200,22 @@ div.alert {
   display: none;
 }
 .buttons {
-  margin-top: 4rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
 }
 .form-control:disabled {
   background-color: #171d28;
   opacity: .2;
+}
+.btn-default{
+  background-color: #32363d;
+}
+.btn-default:hover{
+  background-color: #1f232b;
+}
+.btn:hover{
+  opacity: .7;
 }
 @media (max-width: 250px) {
   label{

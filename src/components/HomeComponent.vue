@@ -16,21 +16,28 @@
       </div>
     </div>
   </div>
+  <FooterComponent/>
 </template>
 <script lang="ts">
-import { start } from 'repl'
-import { onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import settings from '../../public/settings.json'
+import FooterComponent from './FooterComponent.vue'
 
 export default {
   name: 'HomeComponent',
   setup() {
-    const min = ref(settings.pomodoro)
+    let pom = 0
+    let short = 0
+    let long = 0
+    let alarmType = ''
+
+    const min = ref(pom)
     const sec = ref(0)
     const flag = ref(false)
     const audio_flag = ref(false)
     const pause_flag = ref(false)
     const mode = ref('Pomodoro')
+
     let mil: number = 0
     let mil_state: number = 0
     let interval: any
@@ -62,7 +69,7 @@ export default {
 
       pause_flag.value = false
       flag.value = false
-      min.value = settings.pomodoro
+      min.value = pom
       sec.value = 0
       mil = 0
       mil_state = 0
@@ -83,7 +90,7 @@ export default {
 
     const play = () => {
       audio_flag.value = true
-      snd = new Audio('./audio/alarm_iphone.mp3')
+      snd = new Audio(`./audio/alarm_${alarmType}.mp3`)
       snd.play()
 
       setTimeout(() => {
@@ -102,6 +109,19 @@ export default {
       new Audio('./audio/click.wav').play()
     }
 
+    onMounted(() => {
+      const { pomodoro, shortBreak, longBreak, alarm } = (localStorage.getItem('app-tasktimer-settings') != null)
+        ? JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
+        : settings
+        
+      pom = min.value = pomodoro
+      short = shortBreak
+      long = longBreak
+      alarmType = alarm
+
+      console.info(short, long)
+    })
+
     onUnmounted(() => {
       clearInterval(interval)
       clearTimeout(timeout)
@@ -114,11 +134,15 @@ export default {
       audio_flag,
       pause_flag,
       mode,
+      settings,
       start,
       stop,
       pause,
       mute
     }
+  },
+  components: {
+    FooterComponent
   }
 }
 </script>

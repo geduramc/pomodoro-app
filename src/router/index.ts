@@ -11,16 +11,25 @@ export default (): Router => {
       {
         path: '/',
         name: 'Home',
+        meta: {
+          icon: 'fa-solid fa-house'
+        },
         component: HomeComponent
       },
       {
         path: '/settings',
         name: 'Settings',
+        meta: {
+          icon: 'fa-solid fa-sliders'
+        },
         component: SettingsComponent
       },
       {
         path: '/download',
         name: 'Download',
+        meta: {
+          icon: 'fa-solid fa-circle-down'
+        },
         component: DownloadComponent
       }
     ]

@@ -1,10 +1,10 @@
 <template>
-  <HeaderComponent />
   <div class="container">
+    <HeaderComponent />
     <router-view></router-view>
+    <InfoComponent/>
+    <FooterComponent/>
   </div>
-  <InfoComponent/>
-  <FooterComponent/>
 </template>
 
 <script lang="ts">

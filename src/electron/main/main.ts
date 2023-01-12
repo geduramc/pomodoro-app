@@ -6,8 +6,8 @@ if (isMac) app.dock.hide()
 
 const createWindow = (): void => {
   const main = new BrowserWindow({
-    width: 350,
-    height: 500,
+    width: 250,
+    height: 350,
     // frame: false,
     resizable: false,
     titleBarStyle: 'hidden',

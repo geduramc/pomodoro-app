@@ -1,11 +1,8 @@
 <template>
   <div class="row">
-    <div class="col-md-12 timer-container">
-      <div class="col-md-12 modes mt-4">
-        <span class="g-btn mode active">Pomodoro</span>
-        <span class="g-btn mode">Short Break</span>
-        <span class="g-btn mode">Long Break</span>
-      </div>
+    <div class="col-md-12 timer-container text-center pt-2">
+      <span class="mode">{{ mode }}</span>
+      <hr/>
       <div class="col-md-12 text-center">
         <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>
       </div>
@@ -21,7 +18,8 @@
   </div>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
+import { start } from 'repl'
+import { onUnmounted, ref } from 'vue'
 import settings from '../../public/settings.json'
 
 export default {
@@ -32,6 +30,7 @@ export default {
     const flag = ref(false)
     const audio_flag = ref(false)
     const pause_flag = ref(false)
+    const mode = ref('Pomodoro')
     let mil: number = 0
     let mil_state: number = 0
     let interval: any
@@ -103,12 +102,18 @@ export default {
       new Audio('./audio/click.wav').play()
     }
 
+    onUnmounted(() => {
+      clearInterval(interval)
+      clearTimeout(timeout)
+    })
+
     return {
       min,
       sec,
       flag,
       audio_flag,
       pause_flag,
+      mode,
       start,
       stop,
       pause,
@@ -136,34 +141,19 @@ a{
   color: var(--default-color);
 }
 .time{
-  font-size: 100px;
+  font-size: 60px;
 }
 button.timer{
-  font-size: 25px;
-}
-div.modes{
-  display: flex;
-  justify-content: center;
-  gap: 5px;
+  font-size: 15px;
 }
 span.mode{
-  padding: 6px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0);
-  border: none;
   color: var(--default-color);
-  font-size: 15px;
-  cursor: pointer;
-}
-span.mode:hover{
-  background: none rgba(13, 110, 253, 0.1);
-}
-span.active{
-  background: none rgba(13, 110, 253, 0.2);
-  border: none;
-  cursor: default;
+  font-size: 20px;
 }
 .paused{
   opacity: 0.3;
+}
+hr{
+  margin: 4px 20px;
 }
 </style>

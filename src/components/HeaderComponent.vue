@@ -1,62 +1,60 @@
 <template>
-  <header class="titlebar">
+  <nav class="titlebar mt-3 mb-4">
     <span class="logo">
       <i class="fa-solid fa-clock"></i>
       TaskTimer
     </span>
-    <ul class="nav justify-content-end m-3 ">
-      <span v-for="(item, index) in routes" :key="index">
-        <li v-if="item.name != route.name" class="nav-item">
-          <router-link class="btn btn-outline-primary" :to="item.path"
-            v-bind:class="{ 'disabled': item.name == 'Settings' }">{{ item.name }}</router-link>
-        </li>
-      </span>
-    </ul>
-    <hr class="m-3">
-  </header>
+    <span v-for="(item, index) in routes" :key="index" class="menu">
+      <router-link class="btn btn-outline-primary" :to="item.path"
+        >{{ item.name }}</router-link>
+    </span>
+  </nav>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { watch, ref } from 'vue'
+import { RouteRecordNormalized, RouterLink, useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'HeaderComponent',
   setup() {
-    const route = ref(useRoute())
-    const routes = ref(useRouter().options.routes.filter(x => x.name != 'Download'))
+    // v-if="item.name != route.name"
+    const route = useRoute()
+    const router = useRouter()
+    const routes = ref([] as RouteRecordNormalized[])
+    
+    watch(route, () => {
+      routes.value = router.getRoutes().filter(x => x.name != route.name && x.name != 'Download')
+    })
 
     return {
-      route,
       routes
     }
   }
 }
 </script>
 <style scoped>
+nav{
+  display: flex;
+  justify-content: space-between;
+}
 .titlebar {
   -webkit-user-select: none;
   -webkit-app-region: drag;
 }
-@media (max-width: 400px) {
-  .titlebar {
-    margin-top: 2rem;
+@media (max-width: 250px) {
+  nav{
+    margin-top: 1.5rem !important;
   }
-}
-hr {
-  margin-bottom: 2rem !important;
-}
-li {
-  margin: 0 0 0 1rem;
 }
 span.logo {
   color: #0D6EFD;
-  margin-left: 1rem;
   float: left;
   font-size: 20px;
   font-weight: 800;
-
-  border-radius: 6px;
-  padding: 6px 10px;
-  opacity: .9;
+  opacity: .6;
+}
+.btn{
+  font-size: 12px;
+  padding: 2px 6px;
 }
 </style>

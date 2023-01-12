@@ -29,7 +29,7 @@
         </ul>
       </div>
     </div>
-    <div class="col-12 mt-4 buttons">
+    <div class="col-12 buttons">
       <input type="button" class="btn btn-primary" value="RESTORE" v-on:click="restore">
       <input type="submit" class="btn btn-primary" value="SAVE" v-on:click="save">
     </div>
@@ -196,6 +196,7 @@ div.alert {
   display: none;
 }
 .buttons {
+  margin-top: 4rem;
   display: flex;
   justify-content: space-between;
 }

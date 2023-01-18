@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12 timer-container text-center pt-2">
-      <button type="button" class="mode" v-on:click="changeMode">{{ mode }}</button>
+      <button type="button" class="mode g-btn" v-on:click="changeMode">{{ mode }}</button>
       <hr/>
       <div class="col-md-12 text-center">
         <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>

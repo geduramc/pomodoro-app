@@ -13,7 +13,7 @@
         <button v-if="flag && !pause_flag" type="button" class="btn btn-info timer" v-on:click="pause">PAUSE</button>
         <button v-if="flag" type="button" class="btn btn-danger timer" v-on:click="stop">STOP</button>
         <button v-if="audio_flag" type="button" class="btn btn-danger timer" v-on:click="mute">
-          <i class="fa-solid fa-volume-xmark"></i>
+          <img src="../assets/icons/stop.svg" alt="stop" />
         </button>
       </div>
     </div>
@@ -201,5 +201,9 @@ button.mode:hover {
 
 hr {
   margin: 2px 20px;
+}
+
+img{
+  height: 25px;
 }
 </style>

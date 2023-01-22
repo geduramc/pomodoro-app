@@ -4,26 +4,26 @@
       <img src="../assets/icons/logo.svg" alt="" srcset="">
       TaskTimer
     </span>
-    <span v-for="(item, index) in routes" :key="index" class="menu">
-      <router-link class="g-btn" :to="item.path">
-        <img :src="'/src/assets/icons/' + item.meta.icon + '.svg'" alt="img" />
-      </router-link>
-    </span>
+    <router-link v-for="(item, index) in routes" :key="index" class="g-btn" :to="item.path">
+      <img :src="item.icon" alt="img" />
+    </router-link>
   </nav>
 </template>
 <script lang="ts">
 import { watch, ref } from 'vue'
-import { RouteRecordNormalized, RouterLink, useRoute, useRouter } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 
 export default {
   name: 'HeaderComponent',
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const routes = ref([] as RouteRecordNormalized[])
+    const routes = ref([] as any[])
 
     watch(route, () => {
-      routes.value = router.getRoutes().filter(x => x.name != route.name && x.name != 'Download')
+      routes.value = router.getRoutes().map(x => {
+        return { icon: `/src/assets/icons/${x.meta.icon}.svg`, ... x }
+      }).filter(x => x.name != route.name && x.name != 'Download')
     })
 
     return {

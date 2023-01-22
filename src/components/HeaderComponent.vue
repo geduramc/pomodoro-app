@@ -22,7 +22,7 @@ export default {
 
     watch(route, () => {
       routes.value = router.getRoutes().map(x => {
-        return { icon: `/src/assets/icons/${x.meta.icon}.svg`, ... x }
+        return { icon: `./src/assets/icons/${x.meta.icon}.svg`, ... x }
       }).filter(x => x.name != route.name && x.name != 'Download')
     })
 

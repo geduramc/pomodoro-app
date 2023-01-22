@@ -11,7 +11,8 @@
     "vite:preview": "vite preview",
     "watch": "tsc -w",
     "app:dev": "tsc && concurrently vite \" electron .\" \"tsc -w\"",
-    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder"
+    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder",
+    "build": "npm run vite:build"
   },
   "build": {
     "appId": "geduramc_task_timer",

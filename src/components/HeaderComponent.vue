@@ -1,12 +1,12 @@
 <template>
   <nav class="titlebar mt-3 mb-4">
     <span class="logo">
-      <i class="fa-solid fa-clock"></i>
+      <img src="../assets/icons/logo.svg" alt="" srcset="">
       TaskTimer
     </span>
     <span v-for="(item, index) in routes" :key="index" class="menu">
-      <router-link class="btn btn-outline-primary" :to="item.path">
-        <i :class="item.meta.icon"></i>
+      <router-link class="g-btn" :to="item.path">
+        <img :src="'/src/assets/icons/' + item.meta.icon + '.svg'" alt="img" />
       </router-link>
     </span>
   </nav>
@@ -18,7 +18,6 @@ import { RouteRecordNormalized, RouterLink, useRoute, useRouter } from 'vue-rout
 export default {
   name: 'HeaderComponent',
   setup() {
-    // v-if="item.name != route.name"
     const route = useRoute()
     const router = useRouter()
     const routes = ref([] as RouteRecordNormalized[])
@@ -39,11 +38,6 @@ nav {
   justify-content: space-between;
 }
 
-.titlebar {
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
-}
-
 @media (max-width: 250px) {
   nav {
     margin-top: 1.5rem !important;
@@ -52,16 +46,15 @@ nav {
 
 span.logo {
   color: var(--default-blue);
-  float: left;
   font-size: 22px;
-  font-weight: 800;
-  opacity: .6;
-  margin-left: .3rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
 }
 
-.btn {
-  margin-right: .3rem;
-  font-size: 16px;
-  padding: 2px 6px;
+img {
+  height: 30px;
 }
 </style>

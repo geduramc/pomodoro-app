@@ -1,9 +1,9 @@
 <template>
   <footer>
     <a href="https://github.com/geduramc/task-timer" target="_blank" rel="noopener noreferrer">
-      <i class="fa-brands fa-github g-btn"></i>
+      <img src="../assets/icons/github.svg" alt="github" class="g-btn" />
     </a>
-    <i class="fa-solid fa-circle-info g-btn" data-bs-toggle="modal" data-bs-target="#info-modal"></i>
+    <img src="../assets/icons/info.svg" alt="github" class="g-btn" data-bs-toggle="modal" data-bs-target="#info-modal" />
   </footer>
 </template>
 <script lang="ts">
@@ -16,20 +16,13 @@ export default {
 }
 </script>
 <style scoped>
-i {
-  font-size: 30px;
-  color: var(--default-blue);
-  cursor: pointer;
-  opacity: 0.4;
-}
-
-i:hover {
-  opacity: 0.9;
-}
-
 footer {
   justify-content: center;
   display: flex;
   gap: 1rem;
+}
+
+img {
+  height: 30px;
 }
 </style>

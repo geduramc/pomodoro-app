@@ -1,36 +1,53 @@
 :root{
   --default-color: #AEAEAE;
   --default-bgclor: #0D1117;
-  --default-blue: #0d6efd;
+  --default-blue: #0C6EFD;
 }
 
 body {
   -webkit-app-region: drag;
 }
+
 input, .btn, .g-btn {
   -webkit-app-region: no-drag;
 }
+
+.titlebar {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
 body{
   overflow-y: hidden;
   overflow-x: hidden;
   background-color: var(--default-bgclor) !important;
   color: var(--default-color) !important;
 }
+
+.g-btn{
+  cursor: pointer;
+}
+
+.g-btn:hover{
+  opacity: 0.6;
+}
+
 .modal-content{
   background-color: var(--default-bgclor)  !important;
 }
-.btn:hover{
-  opacity: 0.9;
-}
+
 .btn-info{
   background-color: #1d8ba2 !important;
 }
+
 .btn-primary{
   background-color: #29528e !important;
 }
+
 .btn-danger{
   background-color: #7e242d !important;
 }
+
 .btn-warning{
   background-color: #806a25 !important;
 }

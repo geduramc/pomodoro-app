@@ -12,7 +12,7 @@ export default (): Router => {
         path: '/',
         name: 'Home',
         meta: {
-          icon: 'fa-solid fa-house'
+          icon: 'home'
         },
         component: HomeComponent
       },
@@ -20,7 +20,7 @@ export default (): Router => {
         path: '/settings',
         name: 'Settings',
         meta: {
-          icon: 'fa-solid fa-sliders'
+          icon: 'settings'
         },
         component: SettingsComponent
       },
@@ -28,7 +28,7 @@ export default (): Router => {
         path: '/download',
         name: 'Download',
         meta: {
-          icon: 'fa-solid fa-circle-down'
+          icon: 'downloads'
         },
         component: DownloadComponent
       }

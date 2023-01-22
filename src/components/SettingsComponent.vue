@@ -20,18 +20,18 @@
     <div class="col-6">
       <small>Alarm</small>
       <div class="dropdown">
-        <button class="btn btn-secondary  dropdown-toggle form-control" type="button" data-bs-toggle="dropdown"
+        <button class="btn btn-default  dropdown-toggle form-control" type="button" data-bs-toggle="dropdown"
           aria-expanded="false">
           {{ alarmType }}
         </button>
         <ul class="dropdown-menu">
-          <li v-for="item in alarms" :key="item" class="item" v-on:click="setAlarm(item)">{{ item }}</li>
+          <li v-for="item in alarms" :key="item" class="dropdown-item" v-on:click="setAlarm(item)">{{ item }}</li>
         </ul>
       </div>
     </div>
     <div class="col-12 buttons">
-      <input type="button" class="btn btn-default" value="RESTORE" v-on:click="restore">
-      <input type="submit" class="btn btn-primary" value="SAVE" v-on:click="save">
+      <button type="button" class="btn btn-info" v-on:click="restore">RESTORE</button>
+      <button type="button" class="btn btn-primary" v-on:click="save">SAVE</button>
     </div>
     <div class="col-12">
       <div class="col-12 alert" v-bind:class="alert.type">
@@ -66,14 +66,14 @@ export default {
       let val = true
       let err = ''
 
-      if(pom.value <= 0 || pom.value > 60) err = 'Time value (min: 1 max: 60)'
-      if(pom.value.toString().length <= 0) err = 'Error or missing Pomodoro value'
-      if(short.value <= 0 || short.value > 60) err = 'Time value (min: 1 max: 60)'
-      if(short.value.toString().length <= 0) err = 'Error or missing Short Break value'
-      if(long.value <= 0 || long.value > 60) err = 'Time value (min: 1 max: 60)'
-      if(long.value.toString().length <= 0) err = 'Error or missing Long Break value'
+      if (pom.value <= 0 || pom.value > 60) err = 'Time value (min: 1 max: 60)'
+      if (pom.value.toString().length <= 0) err = 'Error or missing Pomodoro value'
+      if (short.value <= 0 || short.value > 60) err = 'Time value (min: 1 max: 60)'
+      if (short.value.toString().length <= 0) err = 'Error or missing Short Break value'
+      if (long.value <= 0 || long.value > 60) err = 'Time value (min: 1 max: 60)'
+      if (long.value.toString().length <= 0) err = 'Error or missing Long Break value'
 
-      if(err.length > 0){
+      if (err.length > 0) {
         showAlert('danger', err)
         val = false
       }
@@ -109,10 +109,10 @@ export default {
     }
 
     onMounted(() => {
-      if(localStorage.getItem('app-tasktimer-settings')){
+      if (localStorage.getItem('app-tasktimer-settings')) {
         const { pomodoro, shortBreak, longBreak, longBreakInterval, alarm } = JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
         pom.value = pomodoro,
-        short.value = shortBreak
+          short.value = shortBreak
         long.value = longBreak
         longInterval.value = longBreakInterval
         alarmType.value = alarm
@@ -139,88 +139,23 @@ export default {
 }
 </script>
 <style scoped>
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] {
-  -moz-appearance: textfield;
-}
-input {
-  color: var(--default-color);
-  background-color: #171d28;
-  border: none;
-}
-input:focus {
-  color: var(--default-color);
-  background-color: #171d28;
-}
-.btn-secondary {
-  color: var(--default-color);
-  background-color: #171d28;
-  border: none;
-}
-.btn-secondary:focus {
-  color: var(--default-color);
-  background-color: #171d28;
-}
-
-.btn-secondary:hover {
-  opacity: .5;
-}
-
-li.item {
-  padding-left: .5rem;
-  cursor: pointer;
-}
-li.item:hover {
-  opacity: .3;
-}
-.dropdown-toggle {
-  text-align: left;
-}
-.dropdown-toggle:hover {
-  opacity: .3;
-}
-.dropdown-toggle::after {
-  float: right;
-  margin-top: 10px;
-}
-.dropdown-menu {
-  background-color: #171d28;
-  color: var(--default-color);
-}
 div.alert {
   margin-top: 1rem;
   padding: .2rem;
-  font-size: 12px;
+  font-size: 14px;
 }
-.hidden {
-  display: none;
-}
+
 .buttons {
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
 }
-.form-control:disabled {
-  background-color: #171d28;
-  opacity: .2;
-}
-.btn-default{
-  background-color: #32363d;
-}
-.btn-default:hover{
-  background-color: #1f232b;
-}
-.btn:hover{
-  opacity: .7;
-}
+
 @media (max-width: 250px) {
-  label{
+  label {
     font-size: 14px;
   }
+
   small {
     font-size: 10px;
   }

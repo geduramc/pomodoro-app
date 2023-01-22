@@ -1,14 +1,17 @@
-:root{
+:root {
   --default-color: #AEAEAE;
   --default-bgclor: #0D1117;
   --default-blue: #0C6EFD;
+  --default-bginput: #171d28;
 }
 
 body {
   -webkit-app-region: drag;
 }
 
-input, .btn, .g-btn {
+input,
+.btn,
+.g-btn {
   -webkit-app-region: no-drag;
 }
 
@@ -17,37 +20,99 @@ input, .btn, .g-btn {
   -webkit-app-region: drag;
 }
 
-body{
+body {
   overflow-y: hidden;
   overflow-x: hidden;
   background-color: var(--default-bgclor) !important;
   color: var(--default-color) !important;
 }
 
-.g-btn{
+.g-btn {
   cursor: pointer;
 }
 
-.g-btn:hover{
-  opacity: 0.6;
+.g-btn:hover {
+  opacity: .6;
 }
 
-.modal-content{
-  background-color: var(--default-bgclor)  !important;
+.btn:hover {
+  opacity: .6;
 }
 
-.btn-info{
+.btn-info {
   background-color: #1d8ba2 !important;
 }
 
-.btn-primary{
+.btn-primary {
   background-color: #29528e !important;
 }
 
-.btn-danger{
+.btn-danger {
   background-color: #7e242d !important;
 }
 
-.btn-warning{
+.btn-warning {
   background-color: #806a25 !important;
 }
+
+.btn-default {
+  color: var(--default-color) !important;
+  background-color: var(--default-bginput) !important;
+  border: none;
+}
+
+.modal-content {
+  background-color: var(--default-bgclor) !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input {
+  color: var(--default-color) !important;
+  background-color: #171d28 !important;
+  border: none !important;
+}
+
+.form-control:disabled {
+  opacity: .2 !important;
+}
+
+.dropdown-menu {
+  background-color: var(--default-bginput) !important;
+  color: var(--default-color);
+}
+
+li.dropdown-item {
+  color: var(--default-color);
+  padding-left: .5rem;
+  cursor: pointer;
+}
+
+li.dropdown-item:hover {
+  color: var(--default-color);
+  background-color: #171d28;
+  opacity: .3;
+}
+
+.dropdown-toggle {
+  text-align: left !important;
+}
+
+.dropdown-toggle:hover {
+  opacity: .8;
+}
+
+.dropdown-toggle::after {
+  float: right;
+  margin-top: 10px;
+}
+
+

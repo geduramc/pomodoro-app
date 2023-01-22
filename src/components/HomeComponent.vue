@@ -2,9 +2,11 @@
   <div class="row">
     <div class="col-md-12 timer-container text-center pt-2">
       <button type="button" class="mode g-btn" v-on:click="changeMode">{{ mode }}</button>
-      <hr/>
+      <hr />
       <div class="col-md-12 text-center">
-        <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">{{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}</span>
+        <span v-bind:class="{ 'paused': !flag || pause_flag }" class="time">
+          {{ (min.toString().length == 1) ? '0' + min : min }}:{{ (sec.toString().length == 1) ? '0' + sec : sec }}
+        </span>
       </div>
       <div class="col-md-12 mb-4 buttons">
         <button v-if="!flag || pause_flag" type="button" class="btn btn-primary timer" v-on:click="start">START</button>
@@ -16,7 +18,7 @@
       </div>
     </div>
   </div>
-  <FooterComponent/>
+  <FooterComponent />
 </template>
 <script lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
@@ -49,8 +51,8 @@ export default {
     const start = () => {
       click()
       if (snd != undefined) mute()
-      if (!pause_flag.value) mil = min.value*60000 //if not paused -> initial
-      
+      if (!pause_flag.value) mil = min.value * 60000 //if not paused -> initial
+
       flag.value = true
       pause_flag.value = false
       interval = setInterval(() => {
@@ -84,7 +86,7 @@ export default {
     const pause = () => {
       click()
       pause_flag.value = true
-      mil = mil - (mil_state*1000)
+      mil = mil - (mil_state * 1000)
       mil_state = 0
 
       clearInterval(interval)
@@ -123,7 +125,7 @@ export default {
       const { pomodoro, shortBreak, longBreak, alarm } = (localStorage.getItem('app-tasktimer-settings') != null)
         ? JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
         : settings
-        
+
       pom = min.value = pomodoro
       short = shortBreak
       long = longBreak
@@ -156,44 +158,48 @@ export default {
 }
 </script>
 <style scoped>
-.row{
+.row {
   padding: 0 1rem;
 }
-.timer-container{
-  background-color: rgba(255, 255, 255, 0.03);
+
+.timer-container {
+  background-color: rgba(255, 255, 255, 0.02);
   border-radius: 6px;
   margin-bottom: 20px;
 }
-.buttons{
+
+.buttons {
   display: flex;
   justify-content: center;
   gap: 2rem;
 }
-a{
-  color: var(--default-color);
-}
-.time{
+
+.time {
   font-size: 60px;
   cursor: default;
 }
-button.timer{
+
+button.timer {
   font-size: 15px;
 }
-button.mode{
+
+button.mode {
   color: var(--default-color);
   background-color: transparent;
   border: none;
   font-size: 20px;
-  opacity: .6;
+  opacity: .8;
 }
-button.mode:hover{
+
+button.mode:hover {
   color: var(--default-blue);
-  opacity: .5;
 }
-.paused{
+
+.paused {
   opacity: 0.3;
 }
-hr{
-  margin: 4px 20px;
+
+hr {
+  margin: 2px 20px;
 }
 </style>

@@ -62,6 +62,7 @@ body {
 }
 
 .modal-content {
+  margin-top: 2rem;
   background-color: var(--default-bgcolor) !important;
 }
 

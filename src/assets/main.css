@@ -1,6 +1,6 @@
 :root {
   --default-color: #AEAEAE;
-  --default-bgclor: #0D1117;
+  --default-bgcolor: #0D1117;
   --default-blue: #0C6EFD;
   --default-bginput: #171d28;
 }
@@ -23,7 +23,7 @@ input,
 body {
   overflow-y: hidden;
   overflow-x: hidden;
-  background-color: var(--default-bgclor) !important;
+  background-color: var(--default-bgcolor) !important;
   color: var(--default-color) !important;
 }
 
@@ -62,7 +62,7 @@ body {
 }
 
 .modal-content {
-  background-color: var(--default-bgclor) !important;
+  background-color: var(--default-bgcolor) !important;
 }
 
 input::-webkit-outer-spin-button,

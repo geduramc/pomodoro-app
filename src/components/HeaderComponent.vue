@@ -1,7 +1,7 @@
 <template>
   <nav class="titlebar mt-3 mb-4">
     <span class="logo">
-      <img src="../assets/icons/logo.svg" alt="" srcset="">
+      <img src="@public/icons/logo.svg" alt="" srcset="">
       TaskTimer
     </span>
     <router-link v-for="(item, index) in routes" :key="index" class="g-btn" :to="item.path">
@@ -22,7 +22,12 @@ export default {
 
     watch(route, () => {
       routes.value = router.getRoutes().map(x => {
-        return { icon: `./src/assets/icons/${x.meta.icon}.svg`, ... x }
+        const iconName = x.name?.toString().toLowerCase()
+        
+        return {
+          icon: `./icons/${iconName}.svg`,
+          ...x
+        }
       }).filter(x => x.name != route.name && x.name != 'Download')
     })
 

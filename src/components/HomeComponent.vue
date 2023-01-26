@@ -13,7 +13,7 @@
         <button v-if="flag && !pause_flag" type="button" class="btn btn-info timer" v-on:click="pause">PAUSE</button>
         <button v-if="flag" type="button" class="btn btn-danger timer" v-on:click="stop">STOP</button>
         <button v-if="audio_flag" type="button" class="btn btn-danger timer" v-on:click="mute">
-          <img src="../assets/icons/stop.svg" alt="stop" />
+          <img src="@public/icons/stop.svg" alt="stop" />
         </button>
       </div>
     </div>

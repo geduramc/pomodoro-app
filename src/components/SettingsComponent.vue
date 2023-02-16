@@ -7,26 +7,30 @@
     </div>
     <div class="col-4">
       <small>Short Break</small>
-      <input type="number" id="pomodoro" class="form-control" v-model="short" required>
+      <input type="number" id="shortBreak" class="form-control" v-model="short" required>
     </div>
     <div class="col-4">
       <small>Long Break</small>
-      <input type="number" id="pomodoro" class="form-control" v-model="long" required>
+      <input type="number" id="longBreak" class="form-control" v-model="long" required>
     </div>
-    <div class="col-6">
-      <small>Long Break interval</small>
-      <input type="number" id="pomodoro" class="form-control" v-model="longInterval" required disabled>
+    <div class="col-4">
+      <small>Interval</small>
+      <input type="number" id="breakInterval" class="form-control" v-model="longInterval" required disabled>
     </div>
-    <div class="col-6">
+    <div class="col-8">
       <small>Alarm</small>
-      <div class="dropdown">
-        <button class="btn btn-default  dropdown-toggle form-control" type="button" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          {{ alarmType }}
-        </button>
-        <ul class="dropdown-menu">
-          <li v-for="item in alarms" :key="item" class="dropdown-item" v-on:click="setAlarm(item)">{{ item }}</li>
-        </ul>
+      <div class="alarm">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{ alarmType }}
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="item in alarms" :key="item" class="dropdown-item" v-on:click="setAlarm(item)">{{ item }}</li>
+          </ul>
+        </div>
+        <img v-if="!playerFlag" src="@public/icons/player-play.svg" class="g-btn" alt="player-play" v-on:click="play" />
+        <img v-if="playerFlag" src="@public/icons/player-stop.svg" class="g-btn" alt="player-stop" v-on:click="stop" />
       </div>
     </div>
     <div class="col-12 buttons">
@@ -54,6 +58,10 @@ export default {
     const alarms = ref(settings.alarm)
     const alarmType = ref(alarms.value[0])
     const alert = ref({ type: '', text: '' })
+    const playerFlag = ref(false)
+
+    let snd: HTMLMediaElement
+    let timeout: any
 
     const showAlert = (_type: string, _text: string) => {
       alert.value = { type: `alert-${_type}`, text: _text }
@@ -108,6 +116,22 @@ export default {
       save()
     }
 
+    const play = () => {
+      playerFlag.value = !playerFlag.value
+      snd = new Audio(`./audio/alarm_${alarmType.value}.mp3`)
+      snd.play()
+
+      timeout = setTimeout(() => {
+        stop()
+      }, 5000)
+    }
+
+    const stop = () => {
+      playerFlag.value = !playerFlag.value
+      snd.pause()
+      clearTimeout(timeout)
+    }
+
     onMounted(() => {
       if (localStorage.getItem('app-tasktimer-settings')) {
         const { pomodoro, shortBreak, longBreak, longBreakInterval, alarm } = JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
@@ -131,9 +155,12 @@ export default {
       alarms,
       alarmType,
       alert,
+      playerFlag,
       setAlarm,
       save,
-      restore
+      restore,
+      play,
+      stop
     }
   }
 }
@@ -149,6 +176,26 @@ div.alert {
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+.alarm {
+  display: flex;
+  justify-content: space-between;
+}
+
+img.g-btn{
+  height: 25px;
+  margin-top: .4rem;
+  margin-right: .4rem;
+  opacity: .7;
+}
+
+img.g-btn:hover{
+  opacity: .5;
+}
+
+.dropdown, .dropdown-toggle{
+  width: 98%;
 }
 
 @media (max-width: 250px) {

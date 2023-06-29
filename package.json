@@ -1,21 +1,19 @@
 {
-  "name": "task-timer",
-  "productName": "TaskTimer",
+  "name": "pomodoro-app",
+  "productName": "Pomodoro App",
   "version": "1.0.0",
-  "description": "task-timer app",
+  "description": "pomodoro-app app",
   "private": true,
   "main": "dist/electron/main/main.js",
   "scripts": {
-    "vite:dev": "vite",
-    "vite:build": "rimraf dist/ && vue-tsc --noEmit && vite build",
-    "vite:preview": "vite preview",
-    "watch": "tsc -w",
-    "app:dev": "npm run vite:build && tsc && electron .",
-    "app:build": "rimraf release/ && npm run vite:build && tsc && electron-builder",
-    "build": "npm run vite:build"
+    "web:dev": "vite",
+    "web:build": "rimraf dist/ && vue-tsc --noEmit && vite build",
+    "app:dev": "npm run web:build && tsc && electron .",
+    "app:build": "rimraf release/ && npm run web:build && tsc && electron-builder",
+    "build": "npm run web:build"
   },
   "build": {
-    "appId": "geduramc_task_timer",
+    "appId": "geduramc_pomodoro_app",
     "asar": true,
     "directories": {
       "buildResources": "assets",

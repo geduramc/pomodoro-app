@@ -122,8 +122,8 @@ export default {
     }
 
     onMounted(() => {
-      const { pomodoro, shortBreak, longBreak, alarm } = (localStorage.getItem('app-tasktimer-settings') != null)
-        ? JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
+      const { pomodoro, shortBreak, longBreak, alarm } = (localStorage.getItem('pomodoro-app-settings') != null)
+        ? JSON.parse(localStorage.getItem('pomodoro-app-settings') ?? '')
         : settings
 
       pom = min.value = pomodoro

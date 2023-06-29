@@ -118,4 +118,12 @@ li.dropdown-item:hover {
   margin-top: 10px;
 }
 
+.container {
+  padding: 0 20rem 0 !important;
+}
 
+@media (max-width: 250px) {
+  .container {
+    padding: 0 .8rem 0 !important;
+  }
+}

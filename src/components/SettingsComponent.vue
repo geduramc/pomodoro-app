@@ -34,8 +34,9 @@
       </div>
     </div>
     <div class="col-12 buttons">
-      <button type="button" class="btn btn-info" v-on:click="restore">RESTORE</button>
-      <button type="button" class="btn btn-primary" v-on:click="save">SAVE</button>
+      <a class="btn btn-danger btn-ctl" href="#/">BACK</a>
+      <button type="button" class="btn btn-info btn-ctl" v-on:click="restore">RESTORE</button>
+      <button type="button" class="btn btn-primary btn-ctl" v-on:click="save">SAVE</button>
     </div>
     <div class="col-12">
       <div class="col-12 alert" v-bind:class="alert.type">
@@ -95,7 +96,7 @@ export default {
 
     const save = () => {
       if (validate()) {
-        localStorage.setItem('app-tasktimer-settings', JSON.stringify({
+        localStorage.setItem('pomodoro-app-settings', JSON.stringify({
           pomodoro: pom.value,
           shortBreak: short.value,
           longBreak: long.value,
@@ -133,8 +134,8 @@ export default {
     }
 
     onMounted(() => {
-      if (localStorage.getItem('app-tasktimer-settings')) {
-        const { pomodoro, shortBreak, longBreak, longBreakInterval, alarm } = JSON.parse(localStorage.getItem('app-tasktimer-settings') ?? '')
+      if (localStorage.getItem('pomodoro-app-settings')) {
+        const { pomodoro, shortBreak, longBreak, longBreakInterval, alarm } = JSON.parse(localStorage.getItem('pomodoro-app-settings') ?? '')
         pom.value = pomodoro,
           short.value = shortBreak
         long.value = longBreak
@@ -205,6 +206,10 @@ img.g-btn:hover{
 
   small {
     font-size: 10px;
+  }
+
+  .btn-ctl {
+    padding: .5rem;
   }
 }
 </style>
